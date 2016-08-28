@@ -1,0 +1,53 @@
+** DevTools with Spring Boot **
+
+Add following to pom.xml ->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
+Access H2 console as follows ->
+
+http://localhost:8080/h2-console/
+
+Use JDBC URL as follows when you define database name = "apples"
+
+   jdbc:h2:mem:apples
+
+Eg: application.yml as follows
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:apples;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    platform: h2
+
+Enable Console (IF NOT USING DEVTOOLS if you are as per #1 above no need) ->
+
+Note: If you are not using Spring Boot’s developer tools, but would still like to make use of H2’s console, then you
+can do so by configuring the spring.h2.console.enabled property with a value of true. The H2 console is only intended
+for use during development so care should be taken to ensure that spring.h2.console.enabled is not set to true in production.
+
+application.yml:
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:apples;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    platform: h2
+
+  # enable H2 web console and set url for web console
+  # http://localhost:8080/console
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+Disbale cache of Thymleaf pages if NOT USING DEVTOOLS ->
+
+spring.thymeleaf.cache
